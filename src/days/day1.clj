@@ -1,10 +1,9 @@
 (ns days.day1
-  (:require [clojure.string :as str]
-            [clojure.core :as core]))
+  (:require [clojure.string :as str]))
 
 (def raw-input (slurp "./src/days/day1.txt"))
 
-(def parsed-input 
+(def parsed-input
   (as-> raw-input inp
     (str/split inp #"\n")
     (map #(Integer/parseInt %) inp)))
@@ -14,17 +13,17 @@
 
 (defn solve []
   (->> parsed-input
-    (map calc-mass)
-    (reduce +)))
+       (map calc-mass)
+       (reduce +)))
 
 (defn calc-fuel [n]
   (->> n
-    (iterate calc-mass)
-    (take-while pos?)
-    (rest)
-    (reduce +)))
+       (iterate calc-mass)
+       (take-while pos?)
+       (rest)
+       (reduce +)))
 
 (defn solve2 []
   (->> parsed-input
-    (map calc-fuel)
-    (reduce +)))
+       (map calc-fuel)
+       (reduce +)))
