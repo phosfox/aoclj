@@ -16,3 +16,15 @@
   (->> parsed-input
     (map calc-mass)
     (reduce +)))
+
+(defn calc-fuel [n]
+  (->> n
+    (iterate calc-mass)
+    (take-while pos?)
+    (rest)
+    (reduce +)))
+
+(defn solve2 []
+  (->> parsed-input
+    (map calc-fuel)
+    (reduce +)))
