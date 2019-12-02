@@ -1,8 +1,7 @@
 (ns aoclj.core
-  (:require [days.day1 :as day1])
+  (:require [days.day2 :as day2])
   (:gen-class))
 
 (defn -main "I don't do a whole lot ... yet."
   [& args]
-  (println (day1/solve))
-  (println (day1/solve2)))
+  (println (day2/solve)))
