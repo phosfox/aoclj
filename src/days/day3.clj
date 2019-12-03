@@ -42,15 +42,20 @@
         y2 (coords2 :y)]
     (+ (Math/abs (- x1 x2)) (Math/abs (- y1 y2)))))
 
+(defn log [ls]
+  (println (take 10 ls))
+  ls)
+
 (def wires
-  (as-> raw-input inp
+  (as-> test-input inp
     (str/split inp #"\n")
     (map #(str/split % #",") inp)
     (map wire-coords inp)
+    (log inp)
     (map set inp)
-    (println inp)
+    (log inp)
     (apply set/intersection inp)
-    (println inp)
+    (log inp)
     (map #(manhattan-dist start %) inp)))
 
 (defn solve []
