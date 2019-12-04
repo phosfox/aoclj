@@ -23,10 +23,8 @@
 (defn only-two-same-adj? [n]
   (let [str-n (str n)]
     (as-> str-n s
-      (mapcat #(when (= % %2) [%]) (rest s) s)
-      (frequencies s)
-      (vals s)
-      (some #(= 1 %) s)
+      (partition-by identity s)
+      (some #(= 2 (count %)) s)
       (if s true false))))
 
 (def fulfil-rules (every-pred six-digits? two-same-adj? increasing?))
