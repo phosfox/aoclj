@@ -50,13 +50,32 @@
   (as-> raw-input inp
     (str/split inp #"\n")
     (map #(str/split % #",") inp)
-    (map wire-coords inp)
+    (map wire-coords inp)))
+
+(def intersections
+  (as-> wires inp
     (map set inp)
-    (apply set/intersection inp)
+    (apply set/intersection inp)))
+
+(defn solve []
+  (as-> intersections inp
     (map #(manhattan-dist start %) inp)
     (sort inp)
     (drop 1 inp)
     (first inp)))
 
-(defn solve []
-  wires)
+(defn count-steps [target wire]
+  (as-> wire wire
+    (take-while #(not= % target) wire)
+    (count wire)
+    {:x (target :x) :y (target :y) :steps wire}))
+
+(defn solve2 []
+  (as-> (for [w wires
+              inter intersections]
+          (count-steps inter w)) steps
+    (group-by (juxt :x :y) steps)
+    (map #(+ (:steps (first %)) (:steps (second %))) (vals steps))
+    (sort steps)
+    (rest steps)
+    (first steps)))

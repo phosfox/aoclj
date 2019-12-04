@@ -20,7 +20,6 @@
       (map #(<= (Integer/parseInt (str %1)) (Integer/parseInt (str %2))) s (drop 1 s))
       (every? true? s))))
 
-
 (defn only-two-same-adj? [n]
   (let [str-n (str n)]
     (as-> str-n s
