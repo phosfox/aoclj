@@ -33,7 +33,7 @@
 (def start {:x 0 :y 0})
 
 (defn wire-coords [wire]
-  (reduce #(flatten (conj %1 (path-to-coords %2 (last %1)))) [start] wire))
+  (reduce #(flatten (conj (path-to-coords %2 (last %1)) %1)) [start] wire))
 
 (defn manhattan-dist [coords1 coords2]
   (let [x1 (coords1 :x)
@@ -47,16 +47,16 @@
   ls)
 
 (def wires
-  (as-> test-input inp
+  (as-> raw-input inp
     (str/split inp #"\n")
     (map #(str/split % #",") inp)
     (map wire-coords inp)
-    (log inp)
     (map set inp)
-    (log inp)
     (apply set/intersection inp)
-    (log inp)
-    (map #(manhattan-dist start %) inp)))
+    (map #(manhattan-dist start %) inp)
+    (sort inp)
+    (drop 1 inp)
+    (first inp)))
 
 (defn solve []
   wires)
