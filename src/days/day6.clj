@@ -19,7 +19,19 @@ K)L
 K)YOU
 I)SAN")
 
+(def parsed-input
+  (as-> raw-input inp
+    (str/split inp #"\n")
+    (map #(str/split % #"\)") inp)))
+
+
 (defn orbits [input]
+  (let [key-map (reduce #(assoc %1 (first %2) (conj #{} (second %2))) {} input)
+        fin-map (reduce (fn [m i] (update m (first i) #(conj % (second i)))) key-map parsed-input)]
+    fin-map))
+
+
+(defn orbits-rec [input]
   (loop [lines (str/split input #"\n")
          orbs {}]
     (if lines
@@ -30,10 +42,12 @@ I)SAN")
 
 (defn count-all-edges [edges root depth]
   (+ depth (reduce (fn [c node]
-                     (println c node (edges root))
                      (+ c (count-all-edges edges node (inc depth))))
                    0
                    (edges root))))
+
+(defn solve []
+  (count-all-edges (orbits parsed-input) "COM" 0))
 
 (defn invert-orbits [input]
   (loop [lines (str/split input #"\n")
