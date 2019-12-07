@@ -26,10 +26,7 @@ I)SAN")
 
 
 (defn orbits [input]
-  (let [key-map (reduce #(assoc %1 (first %2) (conj #{} (second %2))) {} input)
-        fin-map (reduce (fn [m i] (update m (first i) #(conj % (second i)))) key-map parsed-input)]
-    fin-map))
-
+  (reduce (fn [map [parent child]] (update map parent #(conj % child))) {} input))
 
 (defn orbits-rec [input]
   (loop [lines (str/split input #"\n")
