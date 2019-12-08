@@ -31,12 +31,15 @@
 
 (def fulfil-new-rules (every-pred six-digits? only-two-same-adj? increasing?))
 
+(def part1
+  (->> (range start end)
+      (filter fulfil-rules)))
+
 (defn solve []
-  (as-> (range start end) nums
-    (filter fulfil-rules nums)
-    (count nums)))
+  (count part1))
+
+(def part2
+  (filter only-two-same-adj? part1))
 
 (defn solve2 []
-  (as-> (range start end) nums
-    (filter fulfil-new-rules nums)
-    (count nums)))
+  (count part2))
